@@ -23,11 +23,6 @@ public class RequestRepositoryImpl implements RequestRepository {
     }
 
     @Override
-    public ItemRequest update(Long id) {
-        return null;
-    }
-
-    @Override
     public Optional<ItemRequest> findById(Long id) {
         var request = store.get(id);
         return Optional.ofNullable(request);
@@ -37,13 +32,6 @@ public class RequestRepositoryImpl implements RequestRepository {
     public List<ItemRequest> findByRequestorId(Long requestorId) {
         return store.values().stream()
                 .filter(it -> it.getRequestor() != null && Objects.equals(it.getRequestor().getId(), requestorId))
-                .sorted(Comparator.comparing(ItemRequest::getCreated).reversed())
-                .toList();
-    }
-
-    @Override
-    public List<ItemRequest> findAll() {
-        return store.values().stream()
                 .sorted(Comparator.comparing(ItemRequest::getCreated).reversed())
                 .toList();
     }
