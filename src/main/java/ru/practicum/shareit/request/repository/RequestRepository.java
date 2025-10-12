@@ -8,11 +8,8 @@ import java.util.Optional;
 public interface RequestRepository {
     ItemRequest save(ItemRequest user);
 
-    ItemRequest update(Long id);
-
     Optional<ItemRequest> findById(Long id);
 
     List<ItemRequest> findByRequestorId(Long userid);
 
-    List<ItemRequest> findAll();
 }
