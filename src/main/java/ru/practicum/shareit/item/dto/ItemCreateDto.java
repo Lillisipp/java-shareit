@@ -2,23 +2,10 @@ package ru.practicum.shareit.item.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import lombok.Data;
 
-/**
- * TODO Sprint add-controllers.
- */
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Accessors(chain = true)
-public class ItemDto {
-    private Long id;
+@Data
+public class ItemCreateDto {
 
     @NotBlank(message = "Название не может быть пустым")
     private String name;
@@ -28,8 +15,4 @@ public class ItemDto {
 
     @NotNull(message = "Поле available обязательно")
     private Boolean available;
-
-    private Long ownerId;
-    private Long requestId;
-
 }
