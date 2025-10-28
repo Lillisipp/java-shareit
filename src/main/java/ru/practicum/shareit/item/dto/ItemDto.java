@@ -2,11 +2,13 @@ package ru.practicum.shareit.item.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
+import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.item.comment.CommentDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO Sprint add-controllers.
@@ -31,5 +33,11 @@ public class ItemDto {
 
     private Long ownerId;
     private Long requestId;
+
+    private BookingDto lastBooking;
+    private BookingDto nextBooking;
+
+
+    private List<CommentDto> comments=new ArrayList<>();
 
 }
