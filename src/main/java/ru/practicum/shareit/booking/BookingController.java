@@ -47,8 +47,8 @@ public class BookingController {
     public List<BookingDto> getBookingsUser(
             @RequestHeader(USER_HEADER) Long userId,
             @RequestParam(required = false, defaultValue = "ALL") BookingState state,
-            @RequestParam(defaultValue="0") @PositiveOrZero int from,
-            @RequestParam(defaultValue="20") @Positive int size
+            @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+            @RequestParam(defaultValue = "20") @Positive int size
     ) {
         return bookingService.getBookings(userId, Role.BOOKER, state, from, size);
     }
@@ -57,8 +57,8 @@ public class BookingController {
     public List<BookingDto> getBookingsOwner(
             @RequestHeader(USER_HEADER) Long ownerId,
             @RequestParam(required = false, defaultValue = "ALL") BookingState state,
-            @RequestParam(defaultValue="0") @PositiveOrZero int from,
-            @RequestParam(defaultValue="20") @Positive int size
+            @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+            @RequestParam(defaultValue = "20") @Positive int size
     ) {
         return bookingService.getBookings(ownerId, Role.OWNER, state, from, size);
     }

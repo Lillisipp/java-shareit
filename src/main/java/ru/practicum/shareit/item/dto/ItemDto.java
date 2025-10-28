@@ -33,11 +33,8 @@ public class ItemDto {
 
     private Long ownerId;
     private Long requestId;
-
     private BookingDto lastBooking;
     private BookingDto nextBooking;
-
-
-    private List<CommentDto> comments=new ArrayList<>();
+    private List<CommentDto> comments = new ArrayList<>();
 
 }
