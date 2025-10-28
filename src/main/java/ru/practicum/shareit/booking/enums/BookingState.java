@@ -1,7 +1,5 @@
 package ru.practicum.shareit.booking.enums;
 
-import java.text.Normalizer;
-
 /**
  * ALL — все брони,
  * CURRENT — текущие бронирование,
@@ -16,11 +14,11 @@ public enum BookingState {
 
 
     public static BookingState parse(String status) {
-        if(status==null) return BookingState.ALL;
+        if (status == null) return BookingState.ALL;
         String normalized = status.trim().toUpperCase();
         try {
             return BookingState.valueOf(normalized);
-        }catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Unknown state: " + status);
         }
     }

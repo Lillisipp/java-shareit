@@ -1,8 +1,10 @@
 package ru.practicum.shareit.request;
 
 import jakarta.persistence.*;
-import lombok.*;
-import ru.practicum.shareit.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 

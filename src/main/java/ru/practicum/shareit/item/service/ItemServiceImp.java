@@ -66,12 +66,10 @@ public class ItemServiceImp implements ItemService {
         var comments = commentRepo.findByItem_IdOrderByCreatedAsc(itemId);
         dto.setComments(commentMapper.toDto(comments));
 
-
         dto.setLastBooking(null);
         dto.setNextBooking(null);
 
         return dto;
-
     }
 
 
@@ -121,6 +119,7 @@ public class ItemServiceImp implements ItemService {
             return dto;
         }).toList();
     }
+
     @Override
     public CommentDto addComment(Long userId, Long itemId, CommentCreateDto dto) {
         if (dto == null || dto.getText() == null || dto.getText().isBlank()) {
