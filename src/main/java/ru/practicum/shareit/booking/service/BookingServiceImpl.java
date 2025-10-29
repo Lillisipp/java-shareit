@@ -84,7 +84,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto getStatusById(Long userId, Long bookingId) {
-        Booking b = bookingRepo.findByItemIdAndStatus(bookingId)
+        Booking b = bookingRepo.findDetailedById(bookingId)
                 .orElseThrow(() -> new GlobalExceptionHandler.NotFoundException("Бронирование не найдено"));
         boolean isOwner = b.getItem() != null && b.getItem().getOwner() != null
                 && b.getItem().getOwner().getId().equals(userId);

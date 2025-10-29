@@ -25,7 +25,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
               join fetch i.owner
               where b.id = :id
             """)
-    Optional<Booking> findByItemIdAndStatus(Long id);
+    Optional<Booking> findDetailedById(Long id);
 
     //поиск по state
     Page<Booking> findByBooker_Id(Long userId, Pageable p);
