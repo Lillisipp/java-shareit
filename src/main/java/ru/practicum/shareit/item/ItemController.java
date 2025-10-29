@@ -48,11 +48,6 @@ public class ItemController {
         itemService.delete(ownerID, itemId);
     }
 
-//    @GetMapping("/{itemId}")
-//    public List<ItemDto> findAllItemsByUser(@RequestHeader(USER_HEADER) Long ownerId) {
-//        return itemService.findAllByOwner(ownerId);
-//    }
-
     @GetMapping("/search")
     public List<ItemDto> search(@RequestHeader(USER_HEADER) Long requesterId,
                                 @RequestParam String text) {

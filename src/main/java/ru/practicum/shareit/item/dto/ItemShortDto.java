@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ItemShortDto {
     private Long id;
-    private String  name;
+    private String name;
 }

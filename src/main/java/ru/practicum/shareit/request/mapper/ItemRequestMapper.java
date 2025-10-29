@@ -20,6 +20,6 @@ public interface ItemRequestMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "created", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "requestor",  expression = "java(requestor.getId())")
+    @Mapping(target = "requestor", expression = "java(requestor.getId())")
     ItemRequest toEntity(RequestCreateDto dto, User requestor);
 }
