@@ -37,9 +37,6 @@ public class BookingServiceImpl implements BookingService {
         if (!dto.getStart().isBefore(dto.getEnd())) {
             throw new IllegalArgumentException("start must be before end");
         }
-        if (dto.getStart().isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("start must be in future");
-        }
         User booker = userRepo.findById(userId)
                 .orElseThrow(() -> new GlobalExceptionHandler.NotFoundException("booker not found"));
         Item item = itemRepo.findById(dto.getItemId())

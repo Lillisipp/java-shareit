@@ -13,7 +13,6 @@ public class BookingCreateDto {
     private Long itemId;
 
     @NotNull
-    @Future
     private LocalDateTime start;
 
     @NotNull
