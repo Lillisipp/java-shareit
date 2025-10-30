@@ -10,7 +10,10 @@ import ru.practicum.shareit.booking.repository.BookingRepository;
 import ru.practicum.shareit.exception.GlobalExceptionHandler;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.item.comment.*;
-import ru.practicum.shareit.item.dto.*;
+import ru.practicum.shareit.item.dto.ItemCreateDto;
+import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemOwnerDto;
+import ru.practicum.shareit.item.dto.ItemUpdateDto;
 import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.user.User;
@@ -19,6 +22,7 @@ import ru.practicum.shareit.user.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -62,7 +66,6 @@ public class ItemServiceImp implements ItemService {
 
         ItemDto dto = itemMapper.toItemDto(item);
 
-        // подтягиваем комментарии
         var comments = commentRepo.findByItem_IdOrderByCreatedAsc(itemId);
         dto.setComments(commentMapper.toDto(comments));
 
@@ -95,27 +98,61 @@ public class ItemServiceImp implements ItemService {
     public List<ItemOwnerDto> findAllByOwnerWithBookings(Long ownerId, int from, int size) {
         if (size <= 0) return List.of();
 
-        var page = itemRepository.findByOwner_Id(ownerId, PageRequest.of(from / size, size));
+        var page = itemRepository.findByOwner_Id(
+                ownerId, PageRequest.of(from / size, size));
         if (page.isEmpty()) return List.of();
 
         var items = page.getContent();
-        var ids = items.stream().map(Item::getId).toList();
+        var itemIds = items.stream()
+                .map(Item::getId)
+                .toList();
+
         var now = LocalDateTime.now();
         var status = BookingStatus.APPROVED.name();
 
-        var last = bookingRepository.findLastByItemIds(ids, now, status)
-                .stream().collect(Collectors.toMap(b -> b.getItem().getId(), b -> b));
-        var next = bookingRepository.findNextByItemIds(ids, now, status)
-                .stream().collect(Collectors.toMap(b -> b.getItem().getId(), b -> b));
+        var last = bookingRepository.findLastByItemIds(itemIds, now, status)
+                .stream()
+                .collect(Collectors.toMap(
+                        b -> b.getItem().getId(),
+                        b -> b,
+                        (recordOne, recordTwo) -> recordOne));
+        var next = bookingRepository.findNextByItemIds(itemIds, now, status)
+                .stream()
+                .collect(Collectors.toMap(b -> b.getItem().getId(),
+                        b -> b,
+                        (recordOne, recordTwo) -> recordOne));
+
+        var commentsByItemId = commentRepo.findByItemIdInOrderByCreatedAsc(itemIds)
+                .stream()
+                .collect(Collectors.groupingBy(c -> c.getItem().getId()));
+
 
         return items.stream().map(it -> {
             var dto = itemMapper.toOwnerDto(it);
+
             var lb = last.get(it.getId());
-            if (lb != null)
-                dto.setLastBooking(new BookingShortDto(lb.getId(), lb.getBooker().getId(), lb.getStart(), lb.getEnd()));
+            if (lb != null) {
+                dto.setLastBooking(new BookingShortDto(
+                        lb.getId(),
+                        lb.getBooker().getId(),
+                        lb.getStart(),
+                        lb.getEnd()
+                ));
+            }
             var nb = next.get(it.getId());
-            if (nb != null)
-                dto.setNextBooking(new BookingShortDto(nb.getId(), nb.getBooker().getId(), nb.getStart(), nb.getEnd()));
+            if (nb != null) {
+                dto.setNextBooking(new BookingShortDto(
+                        nb.getId(),
+                        nb.getBooker().getId(),
+                        nb.getStart(),
+                        nb.getEnd()
+                ));
+            }
+            var comms = commentsByItemId.getOrDefault(it.getId(), List.of());
+            dto.setComments(
+                    comms.stream().map(commentMapper::toDto).toList()
+            );
+
             return dto;
         }).toList();
     }

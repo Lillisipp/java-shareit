@@ -9,6 +9,7 @@ spring:
         jdbc:
           time_zone: UTC
         format_sql: true
+    open-in-view: false
   datasource:
     username: "dbuser"
     password: "12345"

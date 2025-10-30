@@ -13,18 +13,24 @@ public interface ItemMapper {
 
     @Mapping(target = "ownerId", source = "item.owner.id")
     @Mapping(target = "requestId", source = "item.request")
+    @Mapping(target = "lastBooking", ignore = true)
+    @Mapping(target = "nextBooking", ignore = true)
+    @Mapping(target = "comments", ignore = true)
     ItemDto toItemDto(Item item);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "dto.name")
+    @Mapping(target = "request", ignore = true)
     Item toItemFromCreateDto(ItemCreateDto dto, User owner);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "owner", ignore = true)
+    @Mapping(target = "request", ignore = true)
     void updateItemFromUpdateDto(ItemUpdateDto itemUpdateDto, @MappingTarget Item item);
 
     @Mapping(target = "lastBooking", ignore = true)
     @Mapping(target = "nextBooking", ignore = true)
+    @Mapping(target = "comments", ignore = true)
     ItemOwnerDto toOwnerDto(Item item);
 }

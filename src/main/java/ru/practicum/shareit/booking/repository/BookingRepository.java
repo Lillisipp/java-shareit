@@ -52,10 +52,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query(value = """
               select distinct on (b.id_item) b.*
               from bookings b
-                join users u on u.id_user = b.id_booker
               where b.id_item in (:ids)
                 and b.status = :st
-                and b.end_time < :now
+                and b.start_time < :now
               order by b.id_item, b.end_time desc
             """, nativeQuery = true)
     List<Booking> findLastByItemIds(List<Long> ids,
@@ -65,7 +64,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query(value = """
               select distinct on (b.id_item) b.*
               from bookings b
-              join users u on u.id_user = b.id_booker
               where b.id_item in (:ids)
                 and b.status = :st
                 and b.start_time > :now

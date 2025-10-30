@@ -2,6 +2,7 @@ package ru.practicum.shareit.item.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.practicum.shareit.item.Item;
@@ -18,5 +19,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             """)
     List<Item> search(String text);
 
+    @EntityGraph(attributePaths = {"owner"})
     Page<Item> findByOwner_Id(Long ownerId, Pageable pageable);
 }

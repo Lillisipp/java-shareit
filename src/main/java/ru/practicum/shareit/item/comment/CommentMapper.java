@@ -10,6 +10,7 @@ import java.util.List;
 public interface CommentMapper {
 
     @Mapping(target = "authorName", source = "author.name")
+    @Mapping(target = "id", ignore = true)
     CommentDto toDto(Comment c);
 
     List<CommentDto> toDto(List<Comment> entities);
