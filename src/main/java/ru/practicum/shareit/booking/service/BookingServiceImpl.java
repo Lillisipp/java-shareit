@@ -1,5 +1,6 @@
 package ru.practicum.shareit.booking.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +33,7 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepo;
     private final BookingMapper mapper;
 
+    @Transactional
     @Override
     public BookingDto create(Long userId, BookingCreateDto dto) {
         if (!dto.getStart().isBefore(dto.getEnd())) {
