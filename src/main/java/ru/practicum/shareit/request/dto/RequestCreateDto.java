@@ -4,8 +4,6 @@ import lombok.Data;
 
 @Data
 public class RequestCreateDto {
-
     private String description;
-//    private User requestorId;
-//    private LocalDateTime created;
+
 }

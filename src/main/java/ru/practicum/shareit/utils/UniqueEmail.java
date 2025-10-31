@@ -13,6 +13,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueEmail {
     String message() default "Email уже используется";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

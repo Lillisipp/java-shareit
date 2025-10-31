@@ -10,9 +10,6 @@ import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.List;
 
-/**
- * TODO Sprint add-controllers.
- */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/users")
@@ -28,7 +25,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public UserDto update(@PathVariable Long id,
-                       @Valid @RequestBody UpdateUserDto userDto) {
+                          @Valid @RequestBody UpdateUserDto userDto) {
         return userService.update(id, userDto);
     }
 

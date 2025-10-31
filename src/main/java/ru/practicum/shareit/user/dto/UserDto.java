@@ -18,6 +18,5 @@ public class UserDto {
 
     @NotBlank
     @Email(regexp = ".*@.*", message = "Электронная почта должна содержать символ '@'.")
-//    @UniqueEmail
     private String email;
 }

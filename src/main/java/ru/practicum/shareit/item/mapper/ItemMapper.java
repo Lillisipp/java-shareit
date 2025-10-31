@@ -4,22 +4,33 @@ import org.mapstruct.*;
 import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.item.dto.ItemCreateDto;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemOwnerDto;
 import ru.practicum.shareit.item.dto.ItemUpdateDto;
 import ru.practicum.shareit.user.User;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ItemMapper {
 
-    @Mapping(target = "ownerId", source = "owner.id")
-    @Mapping(target = "requestId", source = "request.id")
+    @Mapping(target = "ownerId", source = "item.owner.id")
+    @Mapping(target = "requestId", source = "item.request")
+    @Mapping(target = "lastBooking", ignore = true)
+    @Mapping(target = "nextBooking", ignore = true)
+    @Mapping(target = "comments", ignore = true)
     ItemDto toItemDto(Item item);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "dto.name")
+    @Mapping(target = "request", ignore = true)
     Item toItemFromCreateDto(ItemCreateDto dto, User owner);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "owner", ignore = true)
+    @Mapping(target = "request", ignore = true)
     void updateItemFromUpdateDto(ItemUpdateDto itemUpdateDto, @MappingTarget Item item);
+
+    @Mapping(target = "lastBooking", ignore = true)
+    @Mapping(target = "nextBooking", ignore = true)
+    @Mapping(target = "comments", ignore = true)
+    ItemOwnerDto toOwnerDto(Item item);
 }

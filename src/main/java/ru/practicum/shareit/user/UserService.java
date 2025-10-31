@@ -10,14 +10,14 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    public UserDto createUser(CreateUserDto userDto);
+    UserDto createUser(CreateUserDto userDto);
 
-    public UserDto update(Long id, UpdateUserDto userDto);
+    UserDto update(Long id, UpdateUserDto userDto);
 
-    public UserDto findById(Long id);
+    UserDto findById(Long id);
 
-    public List<UserDto> findAll();
+    List<UserDto> findAll();
 
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
 }

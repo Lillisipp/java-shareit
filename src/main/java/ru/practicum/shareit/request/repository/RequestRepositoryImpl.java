@@ -31,7 +31,7 @@ public class RequestRepositoryImpl implements RequestRepository {
     @Override
     public List<ItemRequest> findByRequestorId(Long requestorId) {
         return store.values().stream()
-                .filter(it -> it.getRequestor() != null && Objects.equals(it.getRequestor().getId(), requestorId))
+                .filter(it -> it.getRequestor() != null && Objects.equals(it.getRequestor(), requestorId))
                 .sorted(Comparator.comparing(ItemRequest::getCreated).reversed())
                 .toList();
     }
