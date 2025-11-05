@@ -1,6 +1,5 @@
 package ru.practicum.shareit.request.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestCreateDto {
-    @NotBlank
-    private String description;
+public class RequestItemAnswerDto {
+    private Long requestId;
+    private String name;
+    private Long ownerId;
 }

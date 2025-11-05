@@ -18,4 +18,6 @@ public class ItemCreateDto {
 
     @NotNull(message = "Поле available обязательно")
     private Boolean available;
+
+    private Long requestId;
 }

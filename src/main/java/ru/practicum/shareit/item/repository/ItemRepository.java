@@ -24,4 +24,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @EntityGraph(attributePaths = {"owner"})
     Page<Item> findByOwner_Id(Long ownerId, Pageable pageable);
+
+    List<Item> findByRequestIn(List<Long> requestIds);
+
+    List<Item> findByRequest(Long requestId);
 }
