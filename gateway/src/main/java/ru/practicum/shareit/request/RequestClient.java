@@ -35,7 +35,7 @@ public class RequestClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getOwn(long userId) {
-        return get("/" + userId);
+        return get("", userId);
     }
 
     public ResponseEntity<Object> getAllOthers(long userId, Integer from, Integer size) {

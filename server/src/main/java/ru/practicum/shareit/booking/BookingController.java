@@ -32,8 +32,8 @@ public class BookingController {
     }
 
     @GetMapping("/{bookingId}")
-    public BookingDto get(@RequestHeader(USER_HEADER) Long userId,
-                          @PathVariable Long bookingId) {
+    public BookingDto getById(@RequestHeader(USER_HEADER) Long userId,
+                              @PathVariable Long bookingId) {
         return bookingService.getStatusById(userId, bookingId);
     }
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import ru.practicum.shareit.booking.dto.BookingShortDto;
 import ru.practicum.shareit.booking.enums.BookingStatus;
 import ru.practicum.shareit.booking.repository.BookingRepository;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImp implements ItemService {
@@ -174,8 +176,12 @@ public class ItemServiceImp implements ItemService {
         var item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new GlobalExceptionHandler.NotFoundException("item not found"));
 
+        LocalDateTime now = LocalDateTime.now();
+        log.info("addComment: userId: {}, itemId: {}, now: {}", userId, itemId, now);
+
         boolean allowed = bookingRepository.existsByBooker_IdAndItem_IdAndStatusAndEndBefore(
-                userId, itemId, BookingStatus.APPROVED, LocalDateTime.now());
+                userId, itemId, BookingStatus.APPROVED, now
+        );
 
         if (!allowed) {
             throw new IllegalStateException("пользователь не брал товар");
@@ -185,7 +191,7 @@ public class ItemServiceImp implements ItemService {
         comment.setText(dto.getText().trim());
         comment.setItem(item);
         comment.setAuthor(user);
-        comment.setCreated(LocalDateTime.now());
+        comment.setCreated(now);
 
         return commentMapper.toDto(commentRepo.save(comment));
     }
