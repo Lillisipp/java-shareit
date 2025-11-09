@@ -19,7 +19,7 @@ public class ItemRequestController {
 
     @PostMapping
     public ItemRequestDto create(@RequestHeader(USER) Long userId,
-                                 @Valid @RequestBody RequestCreateDto dto) {
+                                 @RequestBody RequestCreateDto dto) {
         return service.create(userId, dto);
     }
 

@@ -25,12 +25,12 @@ public class UserClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> update(Long id, UpdateUserDto dto) {
-        return post("" + id, dto);
-    }
-
     public ResponseEntity<Object> create(CreateUserDto dto) {
         return post("", dto);
+    }
+
+    public ResponseEntity<Object> update(Long id, UpdateUserDto dto) {
+        return patch("/" + id, dto);
     }
 
     public ResponseEntity<Object> delete(long userId) {
@@ -38,8 +38,8 @@ public class UserClient extends BaseClient {
     }
 
     public ResponseEntity<Object> findAll() {
-        return get("/");
-    }
+        return get("");
+    }   // вместо get("/")
 
     public ResponseEntity<Object> findById(long userId) {
         return get("/" + userId);

@@ -111,6 +111,13 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <!-- АКТИВАЦИЯ компилятора -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!-- без конфигурации: подтянет конфиг из pluginManagement ниже -->
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>

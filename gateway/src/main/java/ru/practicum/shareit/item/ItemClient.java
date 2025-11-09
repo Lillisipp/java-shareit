@@ -60,8 +60,7 @@ public class ItemClient extends BaseClient {
                 "from", from,
                 "size", size
         );
-        return post("?from={from}&size={size}", ownerId, parameters);
+        return get("?from={from}&size={size}", ownerId, parameters);
     }
-
 
 }
