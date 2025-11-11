@@ -61,7 +61,6 @@ public class BookingClient extends BaseClient {
                 "from", from,
                 "size", size);
         return get("/owner?state={state}&from={from}&size={size}", ownerId, parameters);
-//        return get("/" + ownerId + "?state={state}&from={from}&size={size}", ownerId, parameters);
     }
 
 }
