@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-class ItemServiceImpTest {
+class ItemRequestServiceImplTest {
 
     @Mock
     private ItemRepository itemRepository;

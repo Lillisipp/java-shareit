@@ -51,7 +51,6 @@ public class ItemRepositoryTest {
 
     @Test
     void search_returnsOnlyAvailable_caseInsensitive_inNameOrDescription() {
-        // text = "DRILL" должен найти i1 по name и i2 по description; i3 отфильтруется из-за available=false
         List<Item> res = itemRepository.search("DRILL");
 
         assertEquals(2, res.size());
@@ -67,7 +66,6 @@ public class ItemRepositoryTest {
                 PageRequest.of(0, 10, Sort.by("name").ascending())
         );
 
-        // у owner1 четыре вещи: i1, i2, i3, i5, i6 -> всего 5 (i4 у owner2)
         assertEquals(5, page.getTotalElements());
         page.getContent().forEach(it -> {
             assertEquals(owner1.getId(), it.getOwner().getId());
