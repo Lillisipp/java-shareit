@@ -4,10 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.*;
-
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import ru.practicum.shareit.booking.Booking;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
@@ -33,12 +36,17 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
 
-    @Mock BookingRepository bookingRepo;
-    @Mock ItemRepository itemRepo;
-    @Mock UserRepository userRepo;
-    @Mock BookingMapper mapper;
+    @Mock
+    BookingRepository bookingRepo;
+    @Mock
+    ItemRepository itemRepo;
+    @Mock
+    UserRepository userRepo;
+    @Mock
+    BookingMapper mapper;
 
-    @InjectMocks BookingServiceImpl service;
+    @InjectMocks
+    BookingServiceImpl service;
 
     private User booker;
     private User owner;
