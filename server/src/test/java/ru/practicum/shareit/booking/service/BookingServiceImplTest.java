@@ -341,7 +341,6 @@ class BookingServiceImplTest {
             when(bookingRepo.findByBooker_IdAndStatus(eq(booker.getId()), eq(BookingStatus.REJECTED), any()))
                     .thenReturn(new PageImpl<>(List.of(booking)));
 
-            // Проверим одну ветку детально с каптором Pageable: ALL
             ArgumentCaptor<Pageable> cap = ArgumentCaptor.forClass(Pageable.class);
             List<BookingDto> all = service.getBookings(booker.getId(), Role.BOOKER, BookingState.ALL, 20, 10);
             assertEquals(1, all.size());
@@ -380,7 +379,6 @@ class BookingServiceImplTest {
             when(bookingRepo.findByItem_Owner_IdAndStatus(eq(owner.getId()), eq(BookingStatus.REJECTED), any()))
                     .thenReturn(new PageImpl<>(List.of(booking)));
 
-            // Проверим детально ветку ALL с каптором Pageable
             ArgumentCaptor<Pageable> cap = ArgumentCaptor.forClass(Pageable.class);
             List<BookingDto> all = service.getBookings(owner.getId(), Role.OWNER, BookingState.ALL, 0, 20);
             assertEquals(1, all.size());
