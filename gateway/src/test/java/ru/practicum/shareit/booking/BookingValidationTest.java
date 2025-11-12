@@ -1,9 +1,10 @@
-package ru.practicum.shareit.booking.dto;
+package ru.practicum.shareit.booking;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
+import ru.practicum.shareit.booking.dto.BookItemRequestDto;
 
 import java.time.LocalDateTime;
 import java.util.Set;
