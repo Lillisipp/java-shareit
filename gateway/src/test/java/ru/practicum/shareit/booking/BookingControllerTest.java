@@ -125,6 +125,4 @@ class BookingControllerTest {
         assert fromCap.getValue() == 2;
         assert sizeCap.getValue() == 20;
     }
-
-
 }

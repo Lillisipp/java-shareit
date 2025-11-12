@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.practicum.shareit.request.dto.RequestCreateDto;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -34,10 +36,7 @@ class ItemRequestControllerTest {
     @Test
     void create_ok_delegatesToClient() throws Exception {
         long userId = 1L;
-        // заполнить валидно под @NotBlank/@Size в RequestCreateDto
-        String body = """
-                  {"description":"need drill"}
-                """;
+        String body = om.writeValueAsString(Map.of("description", "need drill"));
 
         when(requestClient.create(eq(userId), any(RequestCreateDto.class)))
                 .thenReturn(ResponseEntity.ok().build());
@@ -53,9 +52,7 @@ class ItemRequestControllerTest {
 
     @Test
     void create_missingHeader_returns400_andDoesNotCallClient() throws Exception {
-        String body = """
-                  {"description":"need drill"}
-                """;
+        String body = om.writeValueAsString(Map.of("description", "need drill"));
 
         mvc.perform(post("/requests")
                         .contentType(MediaType.APPLICATION_JSON)

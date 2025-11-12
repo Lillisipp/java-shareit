@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -32,9 +34,9 @@ class ItemControllerTest {
     @Test
     void create_ok_delegatesToClient() throws Exception {
         long userId = 1L;
-        String body = """
-                  {"name":"Drill","description":"Powerful","available":true}
-                """;
+        String body = om.writeValueAsString(
+                Map.of("name", "Drill", "description", "Powerful", "available", true)
+        );
 
         when(itemClient.create(eq(userId), any()))
                 .thenReturn(ResponseEntity.ok().build());
@@ -52,9 +54,10 @@ class ItemControllerTest {
     void update_ok_delegatesToClient() throws Exception {
         long userId = 2L;
         long itemId = 10L;
-        String body = """
-                  {"name":"New name","description":"Updated"}
-                """;
+        String body = om.writeValueAsString(
+                Map.of("name", "New name", "description", "Updated")
+        );
+
 
         when(itemClient.update(eq(userId), eq(itemId), any()))
                 .thenReturn(ResponseEntity.ok().build());
@@ -102,9 +105,7 @@ class ItemControllerTest {
     void addComment_ok_delegatesToClient() throws Exception {
         long userId = 6L;
         long itemId = 13L;
-        String body = """
-                  {"text":"Nice tool"}
-                """;
+        String body = om.writeValueAsString(Map.of("text", "Nice tool"));
 
         when(itemClient.addComment(eq(userId), eq(itemId), any()))
                 .thenReturn(ResponseEntity.ok().build());
@@ -154,9 +155,9 @@ class ItemControllerTest {
 
     @Test
     void create_missingHeader_400() throws Exception {
-        String body = """
-                  {"name":"Drill","description":"Powerful","available":true}
-                """;
+        String body = om.writeValueAsString(
+                Map.of("name", "Drill", "description", "Powerful", "available", true)
+        );
 
         mvc.perform(post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -165,6 +166,5 @@ class ItemControllerTest {
 
         verifyNoInteractions(itemClient);
     }
-
 
 }
