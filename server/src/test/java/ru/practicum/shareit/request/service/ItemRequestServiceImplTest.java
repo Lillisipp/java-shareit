@@ -2,7 +2,8 @@ package ru.practicum.shareit.request.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -13,29 +14,32 @@ import ru.practicum.shareit.item.repository.ItemRepository;
 import ru.practicum.shareit.request.ItemRequest;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
 import ru.practicum.shareit.request.dto.RequestCreateDto;
-import ru.practicum.shareit.request.dto.RequestItemAnswerDto;
 import ru.practicum.shareit.request.mapper.ItemRequestMapper;
 import ru.practicum.shareit.request.repository.ItemRequestRepository;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
 @ExtendWith(MockitoExtension.class)
 class ItemRequestServiceImplTest {
 
-    @Mock ItemRequestRepository requestRepository;
-    @Mock UserRepository userRepository;
-    @Mock ItemRequestMapper itemRequestMapper;
-    @Mock ItemRepository itemRepository;
+    @Mock
+    ItemRequestRepository requestRepository;
+    @Mock
+    UserRepository userRepository;
+    @Mock
+    ItemRequestMapper itemRequestMapper;
+    @Mock
+    ItemRepository itemRepository;
 
-    @InjectMocks ItemRequestServiceImpl service;
-
+    @InjectMocks
+    ItemRequestServiceImpl service;
 
 
     @Test
@@ -53,7 +57,6 @@ class ItemRequestServiceImplTest {
         verifyNoInteractions(itemRequestMapper);
         verifyNoInteractions(requestRepository);
     }
-
 
 
     @Test
@@ -84,8 +87,12 @@ class ItemRequestServiceImplTest {
         Long userId = 7L;
         when(userRepository.findById(userId)).thenReturn(Optional.of(new User()));
 
-        ItemRequest r1 = new ItemRequest(); r1.setId(1L); r1.setRequestor(userId);
-        ItemRequest r2 = new ItemRequest(); r2.setId(2L); r2.setRequestor(userId);
+        ItemRequest r1 = new ItemRequest();
+        r1.setId(1L);
+        r1.setRequestor(userId);
+        ItemRequest r2 = new ItemRequest();
+        r2.setId(2L);
+        r2.setRequestor(userId);
 
         List<ItemRequest> found = List.of(r1, r2);
         List<ItemRequestDto> mapped = List.of(
@@ -131,8 +138,14 @@ class ItemRequestServiceImplTest {
         int from = 20;
         int size = 10;
 
-        ItemRequest r1 = new ItemRequest(); r1.setId(100L); r1.setDescription("need A"); r1.setRequestor(1L);
-        ItemRequest r2 = new ItemRequest(); r2.setId(200L); r2.setDescription("need B"); r2.setRequestor(2L);
+        ItemRequest r1 = new ItemRequest();
+        r1.setId(100L);
+        r1.setDescription("need A");
+        r1.setRequestor(1L);
+        ItemRequest r2 = new ItemRequest();
+        r2.setId(200L);
+        r2.setDescription("need B");
+        r2.setRequestor(2L);
 
         var page = new PageImpl<>(List.of(r1, r2));
         when(requestRepository.findByRequestorNot(
@@ -140,20 +153,39 @@ class ItemRequestServiceImplTest {
                 eq(PageRequest.of(from / size, size, Sort.by(Sort.Direction.DESC, "created")))
         )).thenReturn(page);
 
-        Item i11 = new Item(); i11.setId(11L); i11.setName("A1"); i11.setRequest(100L);
-        User o1 = new User(); o1.setId(701L); i11.setOwner(o1);
+        Item i11 = new Item();
+        i11.setId(11L);
+        i11.setName("A1");
+        i11.setRequest(100L);
+        User o1 = new User();
+        o1.setId(701L);
+        i11.setOwner(o1);
 
-        Item i12 = new Item(); i12.setId(12L); i12.setName("A2"); i12.setRequest(100L);
-        User o2 = new User(); o2.setId(702L); i12.setOwner(o2);
+        Item i12 = new Item();
+        i12.setId(12L);
+        i12.setName("A2");
+        i12.setRequest(100L);
+        User o2 = new User();
+        o2.setId(702L);
+        i12.setOwner(o2);
 
-        Item i21 = new Item(); i21.setId(21L); i21.setName("B1"); i21.setRequest(200L);
-        User o3 = new User(); o3.setId(703L); i21.setOwner(o3);
+        Item i21 = new Item();
+        i21.setId(21L);
+        i21.setName("B1");
+        i21.setRequest(200L);
+        User o3 = new User();
+        o3.setId(703L);
+        i21.setOwner(o3);
 
         when(itemRepository.findByRequestIn(List.of(100L, 200L)))
                 .thenReturn(List.of(i11, i12, i21));
 
-        ItemRequestDto d1 = new ItemRequestDto(); d1.setId(100L); d1.setDescription("need A");
-        ItemRequestDto d2 = new ItemRequestDto(); d2.setId(200L); d2.setDescription("need B");
+        ItemRequestDto d1 = new ItemRequestDto();
+        d1.setId(100L);
+        d1.setDescription("need A");
+        ItemRequestDto d2 = new ItemRequestDto();
+        d2.setId(200L);
+        d2.setDescription("need B");
         when(itemRequestMapper.toDto(r1)).thenReturn(d1);
         when(itemRequestMapper.toDto(r2)).thenReturn(d2);
 
